@@ -1,8 +1,0 @@
-- name: Handle Unhealthy Service Event
-  hosts: localhost
-  gather_facts: false
-  tasks:
-    - name: Print service issue
-      debug:
-        msg: >
-          Detected that '{{ ansible_eda.event.service_name }}' is '{{ ansible_eda.event.status }}' at '{{ ansible_eda.event.timestamp }}', current system timestp '{{ now(fmt='%Y-%m-%d %H:%M:%S') }}'
