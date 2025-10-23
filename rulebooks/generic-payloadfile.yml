@@ -1,3 +1,4 @@
+---
 - name: Generic Source Payload File
   hosts: localhost
   sources:
