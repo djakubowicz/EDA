@@ -1,0 +1,16 @@
+- name: Generic Source Payload
+  hosts: localhost
+  sources:
+    - ansible.eda.generic:
+        payload:
+         - { service_name: "webapp", status: "unhealthy", timestamp: "2025-03-30T12:00:00Z" }
+        display: true
+        loop_count: 3 
+        loop_delay: 30 
+        create_index: i
+  rules:
+    - name: Check if the service is unhealthy
+      condition: event.status == "unhealthy"
+      action:
+        run_playbook:
+          name: generic-handle.yml
