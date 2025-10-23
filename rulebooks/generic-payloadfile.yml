@@ -1,6 +1,6 @@
 ---
 - name: Generic Source Payload File
-  hosts: localhost
+  hosts: all
   sources:
     - ansible.eda.generic:
         payload_file:
