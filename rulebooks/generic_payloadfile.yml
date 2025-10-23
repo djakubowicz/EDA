@@ -1,7 +1,6 @@
----
-- name: Generic Source Payload File
-  hosts: localhost
-  sources:
+name: Generic Source Payload File
+hosts: localhost
+sources:
     - ansible.eda.generic:
         payload_file:
            "events.yml"
@@ -9,7 +8,7 @@
         loop_count: 3 
         loop_delay: 30 
         create_index: i
-  rules:
+rules:
     - name: Check if the service is unhealthy
       condition: event.status == "unhealthy"
       action:
