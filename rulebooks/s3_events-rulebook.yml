@@ -14,5 +14,6 @@
   - name: process_uploaded_file
     condition: event.detail.object.key.endswith(".csv")
     action:
-      run_playbook:
-        name: process_file.yml
+      run_job_template:
+        name: ProcessFile
+        organization: Default
