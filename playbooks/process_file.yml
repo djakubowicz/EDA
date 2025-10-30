@@ -1,12 +1,18 @@
-- name: Process uploaded file
+---
+- name: Process uploaded CSV file
   hosts: localhost
+  gather_facts: false
+  vars:
+    bucket_name: "{{ event.detail.bucket.name }}"
+    object_key: "{{ event.detail.object.key }}"
   tasks:
     - name: Download file from S3
-      aws_s3:
-        bucket: my-bucket
-        object: "{{ event.detail.object.key }}"
-        dest: /tmp/{{ event.detail.object.key }}
+      amazon.aws.aws_s3:
+        bucket: "{{ bucket_name }}"
+        object: "{{ object_key }}"
+        dest: "/tmp/{{ object_key }}"
         mode: get
 
-    - name: Run validation script
-      command: python3 /scripts/validate.py /tmp/{{ event.detail.object.key }}
+    - name: Validate CSV format
+      ansible.builtin.command:
+        cmd: "python3 /scripts/validate.py /tmp/{{ object_key }}"
