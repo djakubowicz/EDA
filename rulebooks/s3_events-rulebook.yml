@@ -4,13 +4,13 @@
 
   ## Define our source for events
   
-sources:
+  sources:
   - name: s3_events
     ansible.eda.webhook:
       host: 0.0.0.0
       port: 5000
 
-rules:
+  rules:
   - name: process_uploaded_file
     condition: event.detail.object.key.endswith(".csv")
     action:
