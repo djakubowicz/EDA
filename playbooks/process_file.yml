@@ -1,0 +1,12 @@
+- name: Process uploaded file
+  hosts: localhost
+  tasks:
+    - name: Download file from S3
+      aws_s3:
+        bucket: my-bucket
+        object: "{{ event.detail.object.key }}"
+        dest: /tmp/{{ event.detail.object.key }}
+        mode: get
+
+    - name: Run validation script
+      command: python3 /scripts/validate.py /tmp/{{ event.detail.object.key }}
