@@ -1,3 +1,9 @@
+---
+- name: Listen for events on a webhook for S3
+  hosts: all
+
+  ## Define our source for events
+  
 sources:
   - name: s3_events
     ansible.eda.webhook:
