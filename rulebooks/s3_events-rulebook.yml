@@ -19,7 +19,7 @@
         organization: Default
         job_args:
           extra_vars:
-            bucket_name: "dja-eda-demo"
-            object_key: "test.csv"
+            bucket_name:  "{{ event.payload.detail.bucket.name }}"
+            object_key: "{{ event.payload.detail.object.key }}"
         
       msg: "The file {{ event.payload.detail.object.key }} is in the {{ event.payload.detail.bucket.name }} bucket"
