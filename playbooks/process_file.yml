@@ -2,9 +2,6 @@
 - name: Process uploaded CSV file
   hosts: localhost
   gather_facts: false
-  vars:
-    bucket_name: "{{ event.payload.detail.bucket.name }}"
-    object_key: "{{ event.payload.detail.object.key }}"
   tasks:
     - name: Download file from S3
       amazon.aws.aws_s3:
