@@ -17,6 +17,6 @@
       run_job_template:
         name: S3ProcessFile
         extra_vars:
-          bucket_name: "{{ event.payload.detail.bucket }}"
+          bucket_name: "{{ event.payload.detail.bucket.name }}"
           object_key: "{{ event.payload.detail.object.key }}"
         organization: Default
