@@ -10,6 +10,8 @@
         object: "{{ object_key }}"
         dest: "/tmp/{{ object_key }}"
         mode: get
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: " {{ aws_secret_key }}"
 
     - name: Validate CSV format
       ansible.builtin.command:
