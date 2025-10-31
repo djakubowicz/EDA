@@ -15,7 +15,7 @@
     condition: event.payload.detail.object.key is regex (".*\.csv", ignorecase=true)
     action:
       run_job_template:
-        name: ProcessFile
+        name: S3ProcessFile
         extra_vars:
           bucket: "{{ event.payload.detail.bucket }}"
           object: "{{ event.payload.detail.object.key }}"
