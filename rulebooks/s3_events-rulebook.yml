@@ -12,7 +12,7 @@
 
   rules:
   - name: process_uploaded_file
-    condition: event.payload.object.key is regex (".+\\.csv", ignorecase=true)
+    condition: event.detail.object.key is regex (".+\\.csv", ignorecase=true)
     action:
       run_job_template:
         name: ProcessFile
