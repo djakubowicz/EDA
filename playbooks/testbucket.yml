@@ -4,7 +4,7 @@
   gather_facts: false
   tasks:
     - name: Download file from S3
-      amazon.aws.aws_s3:
+      amazon.aws.s3_object:
         region: eu-north-1
         bucket: dja-eda-demo
         mode: list
