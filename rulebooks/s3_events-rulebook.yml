@@ -20,6 +20,4 @@
           bucket_name: "{{ event.payload.detail.bucket.name }}"
           object_key: "{{ event.payload.detail.object.key }}"
         organization: Default
-        
-  - debug:
-        msg: "The file {{ event.payload.detail.object.key }} is in the {{ event.payload.detail.bucket.name }} bucket"
+      msg: "The file {{ event.payload.detail.object.key }} is in the {{ event.payload.detail.bucket.name }} bucket"
