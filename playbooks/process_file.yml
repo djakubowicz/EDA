@@ -5,6 +5,7 @@
   tasks:
     - name: Download file from S3
       amazon.aws.aws_s3:
+        region: eu-north-1
         bucket: "{{ bucket_name }}"
         object: "{{ object_key }}"
         dest: "/tmp/{{ object_key }}"
