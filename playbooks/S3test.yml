@@ -1,0 +1,8 @@
+---
+- name: Process uploaded CSV file
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Debug message from AAP Controller
+      ansible.builtin.debug:
+        msg: "The file {{ object_key }} is in the {{ bucket_name }} bucket"
