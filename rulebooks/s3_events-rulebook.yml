@@ -16,8 +16,10 @@
     action:
       run_job_template:
         name: S3ProcessFile
-        extra_vars:
-          bucket_name: "dja-eda-demo"
-          object_key: "test.csv"
         organization: Default
+        job_args:
+          extra_vars:
+            bucket_name: "dja-eda-demo"
+            object_key: "test.csv"
+        
       msg: "The file {{ event.payload.detail.object.key }} is in the {{ event.payload.detail.bucket.name }} bucket"
