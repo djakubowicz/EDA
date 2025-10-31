@@ -12,7 +12,7 @@
 
   rules:
   - name: process_uploaded_file
-    condition: event.detail.object.key.endswith(".csv")
+    condition: event.detail.object.key matches ".*\csv$"
     action:
       run_job_template:
         name: ProcessFile
