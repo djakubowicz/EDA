@@ -16,3 +16,7 @@
     - name: Validate CSV format
       ansible.builtin.command:
         cmd: "python3 /scripts/validate.py /tmp/{{ object_key }}"
+        
+    - name: Display system information
+      debug:
+        msg: "The file {{ object_key }} is in the {{ bucket_name }} bucket"
