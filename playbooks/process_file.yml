@@ -15,6 +15,6 @@
       ansible.builtin.command:
         cmd: "python3 /scripts/validate.py /tmp/{{ object_key }}"
 
-    - name: Debug Event
-     debug:
+    - name: Debug message from AAP Controller
+      ansible.builtin.debug:
         msg: "The file {{ object_key }} is in the {{ bucket_name }} bucket"
