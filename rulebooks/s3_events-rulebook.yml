@@ -16,4 +16,7 @@
     action:
       run_job_template:
         name: ProcessFile
+        extra_vars:
+          bucket: "{{ event.payload.detail.bucket }}"
+          object: "{{ event.payload.detail.object.key }}"
         organization: Default
