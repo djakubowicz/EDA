@@ -25,4 +25,4 @@
     - name: Confirmer l'arrêt de l'instance
       debug:
         msg: "L'instance {{ instance_id }} a été arrêtée avec succès."
-        when: ec2_stop_result.changed
+      when: ec2_stop_result.changed
