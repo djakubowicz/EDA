@@ -15,9 +15,7 @@
 
     - name: Set current hour fact
       ansible.builtin.set_fact:
-        shour: "{{ current_hour_cmd.stdout | int }}"
-  vars:
-    hour: !!int "{{shour}}"
+        hour: !!int "{{ current_hour_cmd.stdout | int }}"
 
   rules:
     - name: Stop dev EC2 instances inside 6h-20h
