@@ -1,21 +1,27 @@
 ---
-- name: Stop EC2 instances outside business hours
+- name: Stop EC2 instances outside work hours
   hosts: localhost
   sources:
-    - ansible.eda.webhook:  # connecté à l'EventBridge
+    - ansible.eda.webhook:
         host: 0.0.0.0
         port: 5000
 
+  # Ici on calcule l'heure courante côté hôte local
+  pre_tasks:
+    - name: Get current hour
+      ansible.builtin.command: date +%H
+      register: current_hour_cmd
+      changed_when: false
+
+    - name: Set current hour fact
+      ansible.builtin.set_fact:
+        current_hour: "{{ current_hour_cmd.stdout | int }}"
+
   rules:
-    - name: Stop dev EC2 instances
+    - name: Stop dev EC2 instances inside 6h-20h
       condition: >
-        {{event.payload.detail.state == "running"
-        and (lookup('pipe', 'date +%H') | int >= 6 
-          or lookup('pipe', 'date +%H') | int < 20)}}
+        event.payload.detail.state == "running"
+        and (current_hour < 20 and current_hour >= 6)
       action:
-        run_job_template:
-          name: "Stop EC2 Dev Instance"
-          organization: "Default"
-          job_args:
-            extra_vars:
-              instance_id: "{{ event.payload.detail['instance-id'] }}"
+        debug:
+          msg: "Instance {{ event.payload.detail['instance-id'] }} doit être arrêtée"
