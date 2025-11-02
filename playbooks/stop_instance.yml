@@ -20,7 +20,8 @@
         state: stopped
         region: "eu-west-3"
       when: (ansible_date_time.hour | int >= 19) or (ansible_date_time.hour | int < 6)
+      debug:
+        msg: "Instance {{ instance_id }} stopped successfully!"
       register: result
 
-    - debug:
-        msg: "Instance {{ instance_id }} stopped successfully!"
+
