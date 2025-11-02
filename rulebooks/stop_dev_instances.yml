@@ -15,11 +15,11 @@
 
     - name: Set current hour fact
       ansible.builtin.set_fact:
-        current_hour: "{{ current_hour_cmd.stdout | int }}"
+        hour: "{{ current_hour_cmd.stdout | int }}"
 
   rules:
     - name: Stop dev EC2 instances inside 6h-20h
-      condition: event.payload.detail.state == 'running' and current_hour < 20 and current_hour >= 6
+      condition: event.payload.detail.state == 'running' and hour < 20 and hour >= 6
       action:
         debug:
           msg: "Instance {{ event.payload.detail['instance-id'] }} doit être arrêtée"
