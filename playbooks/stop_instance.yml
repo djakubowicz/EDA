@@ -4,7 +4,16 @@
   connection: local
   gather_facts: true
 
+  vars:
+    instance_id: "{{ event.detail['instance-id'] }}"
   tasks:
+    - name: Get EC2 instance info
+      amazon.aws.ec2_instance_info:
+        instance_ids:
+          - "{{ instance_id }}"
+        region: "eu-west-3"
+      register: ec2_info
+      
     - name: Collecter les faits système
       ansible.builtin.setup:
 
