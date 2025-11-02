@@ -7,8 +7,14 @@
         port: 5000
 
   rules:
-    - name: Stop dev EC2 instances outside 6h-20h
-      condition: event.payload.detail.state == 'running' and (now()[11:13] >= "20" or now()[11:13] < "06")
+    - name: running_after_20h
+      condition: event.payload.detail.state == 'running' and now()[11:13] >= "20"
+      action:
+        debug:
+          msg: "Instance {{ event.payload.detail['instance-id'] }} doit être arrêtée"
+
+    - name: running_before_6h
+      condition: event.payload.detail.state == 'running' and now()[11:13] < "06"
       action:
         debug:
           msg: "Instance {{ event.payload.detail['instance-id'] }} doit être arrêtée"
