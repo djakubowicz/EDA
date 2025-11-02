@@ -14,12 +14,21 @@
           - "Date complète : {{ ansible_facts.date_time.iso8601 }}"
           - "Heure UTC : {{ ansible_facts.date_time.hour }}"
     
+    - name: Check if instance has tag env=dev
+      set_fact:
+        is_dev: "{{ ec2_info.instances[0].tags.env is defined and ec2_info.instances[0].tags.env == 'dev' }}"
+
+    - name: Debug - show instance info if env=dev
+      debug:
+        msg: "Instance {{ instance_id }} is a dev instance."
+      when: is_dev
+    
     - name: Stop instance {{ instance_id }}
       amazon.aws.ec2_instance:
         instance_ids: "{{ instance_id }}"
         state: stopped
         region: "eu-west-3"
-      when: (ansible_date_time.hour | int >= 18) or (ansible_date_time.hour | int < 6)
+      when: (ansible_date_time.hour | int >= 18) or (ansible_date_time.hour | int < 6) and is_dev
       register: ec2_stop_result
 
     - name: Confirmer l'arrêt de l'instance
