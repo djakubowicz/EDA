@@ -1,0 +1,19 @@
+---
+- name: Stop dev EC2 instances outside work hours
+  hosts: localhost
+  sources:
+    - ansible.eda.aws_event_stream:
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+        region_name: "eu-west-3"
+        stream_arn: "{{ event_stream_arn }}"
+  rules:
+    - name: Stop dev instance outside work hours
+      condition: >
+        event.detail.tags.env == "dev" and
+        (ansible_date_time.hour | int >= 6 or ansible_date_time.hour | int < 20)
+      action:
+        run_playbook:
+          name: playbooks/stop_instance.yml
+          extra_vars:
+            instance_id: "{{ event.detail['instance-id'] }}"
