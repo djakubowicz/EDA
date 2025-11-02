@@ -8,12 +8,11 @@
 
   # Ici on calcule l'heure courante côté hôte local
   vars:
-    current_hour_cmd: "{{ lookup('pipe', 'date +%H') }}"
-    hour: "{{ current_hour_cmd | int }}"
+    hour: 22
 
   rules:
-    - name: Stop dev EC2 instances inside 6h-20h
-      condition: event.payload.detail.state == 'running' and hour < 20 and hour >= 6
+    - name: Stop dev EC2 instances outside 6h-20h
+      condition: event.payload.detail.state == 'running' and (hour < 6 or hour >= 20)
       action:
         debug:
           msg: "Instance {{ event.payload.detail['instance-id'] }} doit être arrêtée"
