@@ -9,8 +9,9 @@
   rules:
     - name: Stop dev EC2 instances
       condition: >
-        event.payload.detail.state == "running"
-        and (lookup('pipe', 'date +%H') | int >= 6 or lookup('pipe', 'date +%H') | int < 20)
+        {{event.payload.detail.state == "running"
+        and (lookup('pipe', 'date +%H') | int >= 6 
+          or lookup('pipe', 'date +%H') | int < 20)}}
       action:
         run_job_template:
           name: "Stop EC2 Dev Instance"
