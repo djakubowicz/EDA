@@ -5,6 +5,15 @@
   gather_facts: true
 
   tasks:
+    - name: Collecter les faits système
+      ansible.builtin.setup:
+
+    - name: Afficher la date et l'heure UTC actuelle
+      debug:
+        msg:
+          - "Date complète : {{ ansible_facts.date_time.iso8601 }}"
+          - "Heure UTC : {{ ansible_facts.date_time.hour }}"
+    
     - name: Stop instance {{ instance_id }}
       amazon.aws.ec2_instance:
         instance_ids: "{{ instance_id }}"
