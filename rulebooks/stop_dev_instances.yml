@@ -8,7 +8,7 @@
 
   rules:
     - name: Stop dev EC2 instances
-      condition: event.payload.detail.state == "running" and event.payload.details.tags.env == "dev"
+      condition: event.payload.detail.state == "running" and event.payload.detail.tags.env == "dev"
       action:
         run_job_template:
           name: "Stop EC2 Dev Instance"
