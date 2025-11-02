@@ -13,9 +13,6 @@
           - "{{ instance_id }}"
         region: "eu-west-3"
       register: ec2_info
-      
-    - name: Collecter les faits système
-      ansible.builtin.setup:
 
     - name: Afficher la date et l'heure UTC actuelle
       debug:
@@ -37,7 +34,7 @@
         instance_ids: "{{ instance_id }}"
         state: stopped
         region: "eu-west-3"
-      when: (ansible_date_time.hour | int >= 18) or (ansible_date_time.hour | int < 6) and is_dev
+      when: is_dev and (ansible_date_time.hour | int >= 18) or (ansible_date_time.hour | int < 6)
       register: ec2_stop_result
 
     - name: Confirmer l'arrêt de l'instance
