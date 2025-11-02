@@ -7,15 +7,9 @@
         port: 5000
 
   # Ici on calcule l'heure courante côté hôte local
-  pre_tasks:
-    - name: Get current hour
-      ansible.builtin.command: date +%H
-      register: current_hour_cmd
-      changed_when: false
-
-    - name: Set current hour fact
-      ansible.builtin.set_fact:
-        hour: !!int "{{ current_hour_cmd.stdout | int }}"
+  vars:
+    current_hour_cmd: "{{ lookup('pipe', 'date +%H') }}"
+    hour: "{{ current_hour_cmd | int }}"
 
   rules:
     - name: Stop dev EC2 instances inside 6h-20h
