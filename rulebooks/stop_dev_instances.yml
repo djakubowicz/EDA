@@ -19,9 +19,7 @@
 
   rules:
     - name: Stop dev EC2 instances inside 6h-20h
-      condition: >
-        event.payload.detail.state == "running"
-        and (current_hour < 20 and current_hour >= 6)
+      condition: "event.payload.detail.state == 'running' and (current_hour < 20 and current_hour >= 6)"
       action:
         debug:
           msg: "Instance {{ event.payload.detail['instance-id'] }} doit être arrêtée"
