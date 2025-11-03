@@ -1,0 +1,24 @@
+---
+- name: Delete an object from an S3 bucket
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+    #bucket_name: "mon-bucket-demo"
+    #object_key: "dossier/test.txt"   # chemin complet de l'objet à supprimer
+    region: "eu-west-3"
+
+  tasks:
+    - name: Delete the S3 object
+      amazon.aws.s3_object:
+        bucket: "{{ bucket_name }}"
+        object: "{{ object_key }}"
+        state: absent
+        region: "{{ region }}"
+      register: delete_result
+
+    - name: Confirm deletion
+      debug:
+        msg: "Objet {{ object_key }} supprimé du bucket {{ bucket_name }}."
+      when: delete_result.changed
