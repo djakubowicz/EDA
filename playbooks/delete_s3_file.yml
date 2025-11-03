@@ -11,7 +11,7 @@
 
   tasks:
     - name: Delete the S3 object
-      aws.aws_s3:
+      amazon.aws.aws_s3:
         bucket: "{{ bucket_name }}"
         object: "{{ object_key }}"
         mode: delobj
