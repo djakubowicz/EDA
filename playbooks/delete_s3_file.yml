@@ -14,7 +14,7 @@
       amazon.aws.s3:
         bucket: "{{ bucket_name }}"
         object: "{{ object_key }}"
-        mode: delete
+        mode: delobj
         region: "{{ region }}"
       register: delete_result
 
