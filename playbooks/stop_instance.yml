@@ -34,7 +34,7 @@
         instance_ids: "{{ instance_id }}"
         state: stopped
         region: "eu-west-3"
-      when: is_dev and (ansible_date_time.hour | int >= 18) or (ansible_date_time.hour | int < 6)
+      when: is_dev and (ansible_date_time.hour | int >= 12) or (ansible_date_time.hour | int < 6)
       register: ec2_stop_result
 
     - name: Confirmer l'arrêt de l'instance
